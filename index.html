@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamiser le distanciel | APF Formation</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #00536A;
+            background-color: #FDF7EE;
+        }
+
+        /* ===== COULEURS ===== */
+        :root {
+            --bleu: #00536A;
+            --orange: #F7A916;
+            --blanc: #FFFFFF;
+            --beige-clair: #FFF6E4;
+            --gris: #D9D9D9;
+            --vert-clair: #A7C4B5;
+            --vert-fonce: #729B86;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            background-color: var(--blanc);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .logo {
+            max-width: 200px;
+        }
+        h1 {
+            color: var(--bleu);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .tagline {
+            color: var(--bleu);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* ===== MAIN ===== */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            background-color: var(--blanc);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        section h2 {
+            color: var(--bleu);
+            border-bottom: 3px solid var(--orange);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        /* ===== ACCORDEON ===== */
+        .accordion {
+            width: 100%;
+        }
+        .accordion-item {
+            margin-bottom: 1rem;
+            border: 1px solid var(--gris);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .accordion-header {
+            background-color: var(--beige-clair);
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--bleu);
+        }
+        .accordion-header:hover {
+            background-color: var(--vert-clair);
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: var(--blanc);
+            padding: 0 1.5rem;
+        }
+        .accordion-content p {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--gris);
+        }
+        .accordion-content p:last-child {
+            border-bottom: none;
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease;
+        }
+        .accordion-item.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+        .accordion-item.active .accordion-content {
+            max-height: 1000px;
+        }
+
+        /* ===== BOUTONS ===== */
+        .btn {
+            display: inline-block;
+            background-color: var(--bleu);
+            color: var(--blanc);
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem 0;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: var(--vert-fonce);
+        }
+        .btn-container {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        /* ===== VIDÉO & CARTE ===== */
+        .video-container, .map-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+        .video-container iframe, .map-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* ===== ILLUSTRATION SVG ===== */
+        .illustration {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .illustration svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background-color: var(--bleu);
+            color: var(--blanc);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        .footer-links a {
+            color: var(--blanc);
+            text-decoration: none;
+        }
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== ACCESSIBILITÉ ===== */
+        a:focus, button:focus {
+            outline: 3px solid var(--orange);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            .tagline {
+                font-size: 1rem;
+            }
+            .header-container {
+                gap: 1rem;
+            }
+            .btn-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <img src="logo.png" alt="Logo APF Formation" class="logo">
+            <h1>Dynamiser le distanciel</h1>
+            <p class="tagline">Une formation pour animer vos classes virtuelles avec dynamisme et engagement</p>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <!-- ILLUSTRATION -->
+        <section class="illustration">
+            <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Arrière-plan -->
+                <rect width="800" height="400" fill="#FDF7EE" />
+
+                <!-- Tableau -->
+                <rect x="100" y="250" width="600" height="100" fill="#A7C4B5" rx="10" />
+                <rect x="120" y="270" width="560" height="60" fill="#729B86" rx="5" />
+
+                <!-- Formateur -->
+                <circle cx="200" cy="200" r="30" fill="#00536A" />
+                <rect x="185" y="220" width="30" height="50" fill="#F7A916" />
+                <rect x="170" y="270" width="60" height="80" fill="#00536A" />
+
+                <!-- Apprenants -->
+                <circle cx="400" cy="180" r="25" fill="#729B86" />
+                <rect x="385" y="200" width="30" height="40" fill="#A7C4B5" />
+                <rect x="370" y="240" width="60" height="60" fill="#729B86" />
+
+                <circle cx="550" cy="190" r="25" fill="#F7A916" />
+                <rect x="535" y="210" width="30" height="40" fill="#00536A" />
+                <rect x="520" y="250" width="60" height="60" fill="#F7A916" />
+
+                <circle cx="650" cy="170" r="25" fill="#A7C4B5" />
+                <rect x="635" y="190" width="30" height="40" fill="#729B86" />
+                <rect x="620" y="230" width="60" height="60" fill="#A7C4B5" />
+
+                <!-- Écran partagé -->
+                <rect x="300" y="100" width="200" height="120" fill="#FFFFFF" stroke="#00536A" stroke-width="3" rx="5" />
+                <rect x="310" y="110" width="180" height="20" fill="#F7A916" />
+                <rect x="310" y="140" width="180" height="20" fill="#00536A" />
+                <rect x="310" y="170" width="180" height="20" fill="#729B86" />
+
+                <!-- Bulles de dialogue -->
+                <ellipse cx="250" cy="150" rx="40" ry="25" fill="#FFFFFF" stroke="#00536A" stroke-width="2" />
+                <text x="250" y="155" text-anchor="middle" font-size="12" fill="#00536A">Bonjour !</text>
+
+                <ellipse cx="450" cy="120" rx="40" ry="25" fill="#FFFFFF" stroke="#729B86" stroke-width="2" />
+                <text x="450" y="125" text-anchor="middle" font-size="12" fill="#729B86">Merci !</text>
+            </svg>
+        </section>
+
+        <!-- PROGRAMME -->
+        <section>
+            <h2>📚 Programme de la formation</h2>
+            <p>
+                <strong>Durée :</strong> 3 heures (classe virtuelle) |
+                <strong>Mode :</strong> Blended-learning (synchrone + e-learning)
+            </p>
+            <p>
+                <strong>Public :</strong> Formateurs experts du domaine médico-social souhaitant dynamiser leurs formations à distance.
+            </p>
+
+            <div class="accordion">
+                <!-- Introduction -->
+                <div class="accordion-item">
+                    <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accordion-content-1">
+                        <span>📌 Introduction et cadrage (15 minutes)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content" id="accordion-content-1">
+                        <p>Présentation des enjeux du distanciel, des objectifs du module et du déroulement de la journée.</p>
+                    </div>
+                </div>
+
+                <!-- Module e-learning -->
+                <div class="accordion-item">
+                    <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accordion-content-2">
+                        <span>🎥 Module e-learning (45 minutes)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content" id="accordion-content-2">
+                        <p>Les apprenants suivent le module e-learning couvrant :</p>
+                        <p>- Les enjeux spécifiques du distanciel : engagement, interaction, feedback, attention.</p>
+                        <p>- Les principes pédagogiques d'une animation dynamique en ligne.</p>
+                        <p>- Présentation des outils numériques pertinents et des fondamentaux de Microsoft Teams.</p>
+                        <p>- Droits d'auteur et images : les principes de base pour utiliser les ressources de façon légale.</p>
+                        <p>- Cas pratiques et questions pour engager la réflexion.</p>
+                        <p><em>Gestion autonome de la pause : les apprenants gèrent librement leur pause pendant cette période.</em></p>
+                    </div>
+                </div>
+
+                <!-- Débriefing -->
+                <div class="accordion-item">
+                    <div class="accordion-header" tabindex="0" role="button" aria-expanded="false" aria-controls="accordion-content-3">
+                        <span>💬 Débriefing collectif (2 heures)</span>
+                        <span class="accordion-icon">▼</span>
+                    </div>
+                    <div class="accordion-content" id="accordion-content-3">
+                        <p>La formatrice experte en pédagogie revient sur le module e-learning et :</p>
+                        <p>- Répond aux questions et aux cas pratiques soulevés par les apprenants.</p>
+                        <p>- Anime des démonstrations et des ateliers pratiques sur les outils.</p>
+                        <p>- Propose des mises en situation et expériences directes de techniques d'animation dynamique.</p>
+                        <p>- Contextualise les apports au domaine médico-social.</p>
+                        <p>- Recueille les expériences antérieures et les enjeux spécifiques rencontrés.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MOT DU FORMATEUR -->
+        <section>
+            <h2>🎤 Mot du formateur</h2>
+            <p>Découvrez une présentation vidéo de la formation et des enjeux du distanciel.</p>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/MiKM-cLxiHs" title="Présentation de la formation Dynamiser le distanciel" allowfullscreen></iframe>
+            </div>
+        </section>
+
+        <!-- CARTE -->
+        <section>
+            <h2>📍 Lieu de la formation</h2>
+            <p><strong>Adresse :</strong> Italie 2 - 30 avenue d'Italie, 75013 PARIS</p>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.991625996996!2d2.352221915674238!3d48.8337774792874!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67e292a2921ab%3A0x8ddca9ee380ef7e0!2sItalie%202%2C%2030%20Av.%20d%27Italie%2C%2075013%20Paris!5e0!3m2!1sfr!2sfr!4v1635724567890!5m2!1sfr!2sfr" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </section>
+
+        <!-- TÉLÉCHARGEMENTS -->
+        <section>
+            <h2>📥 Téléchargements</h2>
+            <p>Retrouvez ci-dessous les documents utiles pour la formation :</p>
+            <div class="btn-container">
+                <a href="programme.pdf" class="btn" download>Télécharger le programme (PDF)</a>
+                <a href="livret-stagiaire.pdf" class="btn" download>Télécharger le livret stagiaire (PDF)</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>Contact :</strong> Clotilde REIMPRECHT - <a href="mailto:clotilde.reimprecht@apf.asso.fr">clotilde.reimprecht@apf.asso.fr</a></p>
+        <div class="footer-links">
+            <a href="https://formation.apf.asso.fr/certification-habilitation-et-accessibilite/">Politique d'inclusion et de gestion du handicap</a>
+            <a href="tel:+33140786952">Tel : 01 40 78 69 52</a>
+            <a href="https://formation.apf.asso.fr/">Site web APF Formation</a>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">
+            APF Formation - 11 rue Clisson, 75013 PARIS | SIRET : 77568873207728 - Code APE 8559A
+        </p>
+    </footer>
+
+    <!-- SCRIPT POUR L'ACCORDÉON -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                header.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+
+                    // Fermer tous les accordéons
+                    accordionItems.forEach(i => {
+                        i.classList.remove('active');
+                        i.querySelector('.accordion-icon').textContent = '▼';
+                    });
+
+                    // Ouvrir celui cliqué s'il n'était pas actif
+                    if (!isActive) {
+                        item.classList.add('active');
+                        item.querySelector('.accordion-icon').textContent = '▲';
+                    }
+                });
+
+                // Accessibilité : gérer la touche Entrée
+                header.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        header.click();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
